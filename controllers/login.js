@@ -10,7 +10,7 @@ export function loginView(req, res) {
 }
 
 export function registerUser(
-  { name, email, location, password, confirm },
+  { body: { name, email, location, password, confirm } },
   res
 ) {
   if (!name || !email || !password || !confirm) {
@@ -18,6 +18,7 @@ export function registerUser(
   }
   if (password !== confirm) {
     console.log("Password must match");
+    res.redirect("/login");
   } else {
     User.findOne({ email: email }).then((user) => {
       if (user) {

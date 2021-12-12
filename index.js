@@ -1,8 +1,13 @@
-import express from "express";
+import { default as express, urlencoded } from "express";
+import session from "express-session";
+import passport from "passport";
 import mongoose from "mongoose";
 
-import LoginRoute from "./routes/login.js";
+import { Login } from "./routes/index.js";
+import loginCheck from "./auth/passport.js";
 import { PORT, MONGO_URI } from "./config.js";
+
+// loginCheck(passport);
 
 mongoose
   .connect(MONGO_URI, {
@@ -20,9 +25,17 @@ const app = express();
 
 app.set("view engine", "ejs");
 
-app.use(express.urlencoded({ extended: false }));
+app.use(urlencoded({ extended: false }));
 
-app.use(LoginRoute);
+app.use(
+  session({
+    secret: "oneboy",
+    saveUninitialized: true,
+    resave: true,
+  })
+);
+
+app.use(Login);
 
 app.listen(PORT, () => {
   console.log(`Running on http://localhost:${PORT}`);
