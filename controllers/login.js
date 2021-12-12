@@ -1,29 +1,29 @@
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 
-export function registerView(req, res) {
-  res.render("register", {});
+export function registerView(_req, { render }) {
+  render("register", {});
 }
 
-export function loginView(req, res) {
-  res.render("login", {});
+export function loginView(_req, { render }) {
+  render("login", {});
 }
 
 export function registerUser(
   { body: { name, email, location, password, confirm } },
-  res
+  { redirect, render }
 ) {
   if (!name || !email || !password || !confirm) {
     console.log("Fill empty fields");
   }
   if (password !== confirm) {
     console.log("Password must match");
-    res.redirect("/login");
+    redirect("/login");
   } else {
     User.findOne({ email: email }).then((user) => {
       if (user) {
         console.log("email exists");
-        res.render("register", {
+        render("register", {
           name,
           email,
           password,
@@ -45,11 +45,27 @@ export function registerUser(
             newUser.password = hash;
             newUser
               .save()
-              .then(res.redirect("/login"))
+              .then(redirect("/login"))
               .catch((err) => console.log(err));
           });
         });
       }
     });
+  }
+}
+
+export function loginUser({ body: { email, password } }, res) {
+  if (!email || !password) {
+    console.log("Please fill in all the fields");
+    res.render("login", {
+      email,
+      password,
+    });
+  } else {
+    passport.authenticate("local", {
+      successRedirect: "/dashboard",
+      failureRedirect: "/login",
+      failureFlash: true,
+    })(req, res);
   }
 }

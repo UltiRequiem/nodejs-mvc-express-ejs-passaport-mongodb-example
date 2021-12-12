@@ -3,7 +3,7 @@ import session from "express-session";
 import passport from "passport";
 import mongoose from "mongoose";
 
-import { Login } from "./routes/index.js";
+import Routes from "./routes/index.js";
 import loginCheck from "./auth/passport.js";
 import { PORT, MONGO_URI } from "./config.js";
 
@@ -35,7 +35,7 @@ app.use(
   })
 );
 
-app.use(Login);
+app.use(Routes);
 
 app.listen(PORT, () => {
   console.log(`Running on http://localhost:${PORT}`);

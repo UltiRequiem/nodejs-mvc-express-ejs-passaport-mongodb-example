@@ -1,8 +1,8 @@
-export default function protectRoute({ isAuthenticated }, res, next) {
+export default function protectRoute({ isAuthenticated }, { redirect }, next) {
   if (isAuthenticated()) {
     return next();
   }
 
-  console.log("Please log in to continue");
-  res.redirect("/login");
+  console.log("Please authenticate to continue");
+  redirect("/login");
 }
