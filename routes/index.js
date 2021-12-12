@@ -1,11 +1,11 @@
 import { Router } from "express";
+
 import {
   registerView,
   loginView,
   registerUser,
   loginUser,
 } from "../controllers/login.js";
-
 import dashboardView from "../controllers/dashboard.js";
 import protectRoute from "../auth/protect.js";
 

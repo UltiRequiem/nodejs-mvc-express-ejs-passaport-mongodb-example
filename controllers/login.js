@@ -14,28 +14,11 @@ export function registerUser(
   { body: { name, email, location, password, confirm } },
   res
 ) {
-  if (!name || !email || !password || !confirm) {
-    console.log("Fill empty fields");
-    res.redirect("/login");
-  }
-
-  if (password !== confirm) {
-    console.log("Password must match");
-    res.redirect("/login");
-    return;
-  }
+  if (!name || !email || !password || !confirm) res.redirect("/login");
+  if (password !== confirm) res.redirect("/login");
 
   User.findOne({ email }).then((user) => {
-    if (user) {
-      console.log("email exists");
-      res.render("register", {
-        name,
-        email,
-        password,
-        confirm,
-      });
-      return;
-    }
+    if (user) res.render("register", { name, email, password, confirm });
 
     const newUser = new User({
       name,
@@ -43,15 +26,13 @@ export function registerUser(
       location,
       password,
     });
+
     bcrypt.genSalt(10, (err, salt) => {
       if (err) throw err;
       bcrypt.hash(newUser.password, salt, (err, hash) => {
         if (err) throw err;
         newUser.password = hash;
-        newUser
-          .save()
-          .then(res.redirect("/login"))
-          .catch((err) => console.log(err));
+        newUser.save().then(res.redirect("/login"));
       });
     });
   });
@@ -62,12 +43,7 @@ export function loginUser(req, res) {
 
   if (!email || !password) {
     console.log("Please fill in all the fields");
-    res.render("login", {
-      email,
-      password,
-    });
-
-    return;
+    res.render("login", { email, password });
   }
 
   passport.authenticate("local", {

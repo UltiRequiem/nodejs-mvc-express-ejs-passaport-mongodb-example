@@ -1,3 +1,3 @@
-export default function dashboardView({ user }, { render }) {
-  render("dashboard", { user });
+export default function dashboardView({ user }, res) {
+  res.render("dashboard", { user });
 }
