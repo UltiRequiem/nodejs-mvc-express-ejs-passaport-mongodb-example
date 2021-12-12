@@ -7,7 +7,7 @@ import Routes from "./routes/index.js";
 import loginCheck from "./auth/passport.js";
 import { PORT, MONGO_URI } from "./config.js";
 
-loginCheck(passport);
+// loginCheck(passport);
 
 mongoose
   .connect(MONGO_URI, {
@@ -16,19 +16,13 @@ mongoose
   })
   .then(() => {
     console.log("Connected to MongoDB");
-  })
-  .catch((err) => {
-    console.error(err);
   });
 
 const app = express();
 
 app.set("view engine", "ejs");
 
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.use(urlencoded({extended: false}));
+app.use(urlencoded({ extended: false }));
 
 app.use(
   session({
@@ -37,6 +31,9 @@ app.use(
     resave: true,
   })
 );
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(Routes);
 

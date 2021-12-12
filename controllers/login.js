@@ -20,12 +20,7 @@ export function registerUser(
   User.findOne({ email }).then((user) => {
     if (user) res.render("register", { name, email, password, confirm });
 
-    const newUser = new User({
-      name,
-      email,
-      location,
-      password,
-    });
+    const newUser = new User({ name, email, location, password });
 
     bcrypt.genSalt(10, (err, salt) => {
       if (err) throw err;
@@ -40,11 +35,7 @@ export function registerUser(
 
 export function loginUser(req, res) {
   const { email, password } = req.body;
-
-  if (!email || !password) {
-    console.log("Please fill in all the fields");
-    res.render("login", { email, password });
-  }
+  if (!email || !password) res.render("login", { email, password });
 
   passport.authenticate("local", {
     successRedirect: "/dashboard",

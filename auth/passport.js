@@ -9,15 +9,11 @@ export default function loginCheck(passport) {
       { usernameField: "email" },
       (email, password, done) => {
         User.findOne({ email: email }).then((user) => {
-          if (!user) {
-            console.log("wrong email");
-            return done();
-          }
+          if (!user) return done();
+
           bcrypt.compare(password, user.password, (error, isMatch) => {
             if (error) throw error;
             if (isMatch) return done(null, user);
-
-            console.log("Wrong password");
             return done();
           });
         });
