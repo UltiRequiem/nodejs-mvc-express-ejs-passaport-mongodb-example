@@ -7,14 +7,12 @@ import {
 } from "../controllers/login.js";
 
 import dashboardView from "../controllers/dashboard.js";
-
 import protectRoute from "../auth/protect.js";
 
 const router = Router();
 
 router.get("/register", registerView);
 router.get("/login", loginView);
-
 router.get("/dashboard", protectRoute, dashboardView);
 
 router.post("/register", registerUser);

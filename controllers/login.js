@@ -1,4 +1,5 @@
 import User from "../models/User.js";
+import passport from "passport";
 import bcrypt from "bcryptjs";
 
 export function registerView(_req, res) {
