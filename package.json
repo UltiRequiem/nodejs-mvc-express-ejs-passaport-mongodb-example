@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node .",
     "dev": "nodemon .",
-    "format": "prettier --write ."
+    "lint": "eslint .",
+    "fix": "eslint --fix ."
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -20,7 +21,8 @@
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15",
-    "prettier": "^2.5.1"
+    "eslint": "^8.12.0",
+    "eslint-config-xo": "^0.40.0",
+    "nodemon": "^2.0.15"
   }
 }

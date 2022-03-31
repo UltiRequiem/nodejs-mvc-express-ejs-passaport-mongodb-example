@@ -1,21 +1,21 @@
-import { Router } from "express";
+import {Router} from 'express';
 
 import {
-  registerView,
-  loginView,
-  registerUser,
-  loginUser,
-} from "../controllers/login.js";
-import dashboardView from "../controllers/dashboard.js";
-import protectRoute from "../auth/protect.js";
+	loginUser,
+	loginView,
+	registerUser,
+	registerView,
+	dashboardView,
+} from '../controllers/index.js';
+import {protectRoute} from '../auth/index.js';
 
-const router = Router();
+const router = new Router();
 
-router.get("/register", registerView);
-router.get("/login", loginView);
-router.get("/dashboard", protectRoute, dashboardView);
+router.get('/register', registerView);
+router.get('/login', loginView);
+router.get('/dashboard', protectRoute, dashboardView);
 
-router.post("/register", registerUser);
-router.post("/login", loginUser);
+router.post('/register', registerUser);
+router.post('/login', loginUser);
 
 export default router;
