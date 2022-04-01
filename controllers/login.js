@@ -2,29 +2,29 @@ import {User} from '../models/index.js';
 import passport from 'passport';
 import bcrypt from 'bcryptjs';
 
-function registerView(_req, res) {
+function registerView(_request, res) {
 	res.render('register', {});
 }
 
-function loginView(_req, res) {
-	res.render('login', {});
+function loginView(_request, response) {
+	response.render('login', {});
 }
 
 function registerUser(
 	{body: {name, email, location, password, confirm}},
-	res,
+	response,
 ) {
 	if (!name || !email || !password || !confirm) {
-		res.redirect('/login');
+		response.redirect('/login');
 	}
 
 	if (password !== confirm) {
-		res.redirect('/login');
+		response.redirect('/login');
 	}
 
 	User.findOne({email}).then(user => {
 		if (user) {
-			res.render('register', {name, email, password, confirm});
+			response.render('register', {name, email, password, confirm});
 		}
 
 		const newUser = new User({name, email, location, password});
@@ -41,23 +41,24 @@ function registerUser(
 
 				newUser.password = hash;
 
-				newUser.save().then(res.redirect('/login'));
+				newUser.save().then(() => response.redirect('/login'));
 			});
 		});
 	});
 }
 
-function loginUser(req, res) {
-	const {email, password} = req.body;
+function loginUser(request, response) {
+	const {email, password} = request.body;
+
 	if (!email || !password) {
-		res.render('login', {email, password});
+		response.render('login', {email, password});
 	}
 
 	passport.authenticate('local', {
 		successRedirect: '/dashboard',
 		failureRedirect: '/login',
 		failureFlash: true,
-	})(req, res);
+	})(request, response);
 }
 
 export {loginUser, loginView, registerUser, registerView};

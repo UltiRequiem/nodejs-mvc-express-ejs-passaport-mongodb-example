@@ -1,5 +1,5 @@
-function dashboardView({user}, res) {
-	res.render('dashboard', {user});
+function dashboardView({user}, response) {
+	response.render('dashboard', {user});
 }
 
 export {dashboardView};
