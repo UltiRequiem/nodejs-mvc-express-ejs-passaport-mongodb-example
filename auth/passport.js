@@ -1,35 +1,35 @@
-import bcrypt from 'bcryptjs';
-import passportLocal from 'passport-local';
+import bcrypt from "bcryptjs";
+import passportLocal from "passport-local";
 
-import {User} from '../models/index.js';
+import { User } from "../models/index.js";
 
 export function loginCheck(passport) {
-	passport.use(
-		new passportLocal.Strategy(
-			{usernameField: 'email'},
-			(email, password, done) => {
-				User.findOne({email}).then(user => {
-					if (!user) {
-						return done();
-					}
+  passport.use(
+    new passportLocal.Strategy(
+      { usernameField: "email" },
+      (email, password, done) => {
+        User.findOne({ email }).then((user) => {
+          if (!user) {
+            return done();
+          }
 
-					bcrypt.compare(password, user.password, (error, isMatch) => {
-						if (error) {
-							throw error;
-						}
+          bcrypt.compare(password, user.password, (error, isMatch) => {
+            if (error) {
+              throw error;
+            }
 
-						if (isMatch) {
-							return done(undefined, user);
-						}
+            if (isMatch) {
+              return done(undefined, user);
+            }
 
-						return done();
-					});
-				});
-			},
-		),
-	);
+            return done();
+          });
+        });
+      },
+    ),
+  );
 
-	passport.deserializeUser((id, done) => {
-		User.findById(id, (error, user) => done(error, user));
-	});
+  passport.deserializeUser((id, done) => {
+    User.findById(id, (error, user) => done(error, user));
+  });
 }

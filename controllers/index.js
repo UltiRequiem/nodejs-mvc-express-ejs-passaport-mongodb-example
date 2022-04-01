@@ -1,2 +1,2 @@
-export * from './dashboard.js';
-export * from './login.js';
+export * from "./dashboard.js";
+export * from "./login.js";
