@@ -29,9 +29,11 @@ function loginCheck(passport) {
 		),
 	);
 
-	passport.deserializeUser((id, done) => {
-		User.findById(id, (error, user) => done(error, user));
-	});
+	passport.serializeUser(({id}, done) => done(undefined, id));
+
+	passport.deserializeUser((id, done) =>
+		User.findById(id, (error, user) => done(error, user)),
+	);
 }
 
 export {loginCheck};
