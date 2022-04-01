@@ -60,4 +60,4 @@ function loginUser(req, res) {
 	})(req, res);
 }
 
-export {registerView, registerUser, loginView, loginUser};
+export {loginUser, loginView, registerUser, registerView};

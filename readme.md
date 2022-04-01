@@ -4,6 +4,16 @@ Example app using Express + EJS + PassportJS + MongoDB 🚀.
 
 Also it has continuos integration.
 
+## Built With
+
+- [Express.js](https://expressjs.com)
+
+- [E.js](https://ejs.co)
+
+- [Passport.js](https://passportjs.org)
+
+- [MongoDB](https://mongodb.com)
+
 ## Support
 
 Open an Issue, I will check it a soon as possible 👀
@@ -16,15 +26,14 @@ my work 🚀
 
 Don't forget to start the repo ⭐
 
-## Built With
+## Authors
 
-- [Express.js](https://expressjs.com)
+[Eliaz Bobadilla (a.k.a UltiRequiem)](https://ultirequiem.com) - Creator and
+Maintainer 💪
 
-- [E.js](https://ejs.co)
-
-- [Passport.js](https://passportjs.org)
-
-- [MongoDB](https://mongodb.com)
+See also the full list of
+[contributors](https://github.com/UltiRequiem/nodejs-mvc-express-ejs-passaport-mongodb-example/contributors)
+who participated in this project.
 
 ## Licence
 
