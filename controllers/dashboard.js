@@ -1,3 +1,5 @@
-export function dashboardView({user}, res) {
+function dashboardView({user}, res) {
 	res.render('dashboard', {user});
 }
+
+export {dashboardView};

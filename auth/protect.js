@@ -1,7 +1,9 @@
-export function protectRoute(req, res, next) {
+function protectRoute(req, res, next) {
 	if (req.isAuthenticated()) {
 		return next();
 	}
 
 	res.redirect('/login');
 }
+
+export {protectRoute};

@@ -3,7 +3,7 @@ import passportLocal from 'passport-local';
 
 import {User} from '../models/index.js';
 
-export function loginCheck(passport) {
+function loginCheck(passport) {
 	passport.use(
 		new passportLocal.Strategy(
 			{usernameField: 'email'},
@@ -33,3 +33,5 @@ export function loginCheck(passport) {
 		User.findById(id, (error, user) => done(error, user));
 	});
 }
+
+export {loginCheck};
